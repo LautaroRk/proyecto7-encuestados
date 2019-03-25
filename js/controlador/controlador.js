@@ -14,5 +14,6 @@ Controlador.prototype = {
   },
   borrarTodo: function() {
     this.modelo.borrarTodo();
-  }
+  },
+  // agregarVoto: function()
 };

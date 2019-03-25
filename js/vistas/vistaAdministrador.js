@@ -69,8 +69,8 @@ VistaAdministrador.prototype = {
           };
         });
         contexto.limpiarFormulario();
-        contexto.controlador.agregarPregunta(value, respuestas);
-      }
+        contexto.controlador.agregarPregunta(textoPregunta, respuestas);
+      };
     });
     //asociar el resto de los botones a eventos
     e.botonBorrarPregunta.click(function() {
