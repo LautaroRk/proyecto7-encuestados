@@ -11,6 +11,14 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
+
+  this.modelo.preguntaEliminada.suscribir(function() {
+    contexto.reconstruirLista();
+  });
+
+  this.modelo.preguntaEditada.suscribir(function() {
+    contexto.reconstruirLista();
+  });
 };
 
 VistaUsuario.prototype = {
@@ -51,9 +59,11 @@ VistaUsuario.prototype = {
     preguntas.forEach(function(clave){
       //completar
       //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
+      listaPreguntas.append($('<div>').text(clave.textoPregunta).val(clave.textoPregunta).attr('id', clave.id));
+      console.log(listaPreguntas);
       var respuestas = clave.cantidadPorRespuesta;
-      contexto.mostrarRespuestas(listaPreguntas,respuestas, clave);
-    })
+      contexto.mostrarRespuestas(listaPreguntas, respuestas, clave);
+    });
   },
 
   //muestra respuestas
@@ -110,7 +120,7 @@ VistaUsuario.prototype = {
       var chart = new google.visualization.PieChart(div);
       if(seVotoAlgunaVez){
         chart.draw(data, options);
-      }
+      };
     }
   },
 };

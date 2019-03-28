@@ -1,3 +1,11 @@
+//PREGUNTAS: 
+  // var pregunta = this.buscarPreguntaPorId(id);
+  // pregunta.textoPregunta = textoPregunta;
+  // - Se modifica la pregunta original?
+
+  // - Para la funcion editarPregunta: Puedo hacer un click virtual en el boton agregar respuesta por cada respuesta que haya en la pregunta a editar? 
+
+
 /*
  * Modelo
  */
@@ -8,6 +16,7 @@ var Modelo = function() {
   //inicializacion de eventos
   this.preguntaAgregada = new Evento(this);
   this.preguntaEliminada = new Evento(this);
+  this.preguntaEditada = new Evento(this);
 };
 
 Modelo.prototype = {
@@ -29,8 +38,7 @@ Modelo.prototype = {
   },
 
   borrarPregunta: function(idPregunta) {
-    var preguntaAEliminar = this.preguntas.find((pregunta) => pregunta.id === idPregunta);
-    var index = this.preguntas.indexOf(preguntaAEliminar);
+    var index = this.buscarIndiceAPartirDeId(idPregunta);
     this.preguntas.splice(index, 1);
     this.guardar();
     this.preguntaEliminada.notificar();
@@ -42,11 +50,29 @@ Modelo.prototype = {
     this.preguntaEliminada.notificar();
   },
 
-  // respuestaVotada: function(idPregunta, textoRespuesta) {
-  //   var pregunta = this.preguntas.find(pregunta => pregunta.id === idPregunta);
-  //   var respuesta = pregunta.respuestas.find(respuesta => respuesta.textoPregunta === textoRespuesta);
-  //   respuesta.cantidad++;
-  // },
+  editarPregunta: function(idPregunta, nuevoTextoPregunta, respuestas) {
+    var index = this.buscarIndiceAPartirDeId(idPregunta);
+    this.preguntas[index].textoPregunta = nuevoTextoPregunta;
+    this.preguntas[index].cantidadPorRespuesta = respuestas;
+    this.guardar();
+    this.preguntaEditada.notificar();
+  },
+
+  buscarIndiceAPartirDeId: function(idPregunta) {
+    var pregunta = this.buscarPreguntaPorId(idPregunta);
+    return this.preguntas.indexOf(pregunta);
+  },
+
+  buscarPreguntaPorId: function(idPregunta) {
+    return this.preguntas.find((pregunta) => pregunta.id === idPregunta);
+  },
+
+  votarRespuesta: function(idPregunta, textoRespuesta) {
+    var pregunta = this.buscarPreguntaPorId(idPregunta);
+    var respuesta = pregunta.cantidadPorRespuesta.find((respuesta) => respuesta.textoRespuesta === textoRespuesta);
+    respuesta.cantidad++;
+    this.guardar();
+  },
 
   //se guardan las preguntas
   guardar: function(){

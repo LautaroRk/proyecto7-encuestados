@@ -1,4 +1,5 @@
 function validacionDeFormulario(){
+  let cantRespuestas = 1;
 $('#localStorageForm')
   .formValidation({
     framework: 'bootstrap',
@@ -33,9 +34,10 @@ $('#localStorageForm')
       $clone = $template
       .clone()
       .removeClass('hide')
-      .attr('id', "respuesta" + this.cantRespuestas)
+      .attr('id', "respuesta" + cantRespuestas)
       .insertBefore($template),
       $option = $clone.find('[name="option[]"]');
+      cantRespuestas++;
 
     // agregado de nuevo campo al formulario
     $('#localStorageForm').formValidation('addField', $option);
@@ -51,6 +53,8 @@ $('#localStorageForm')
 
     // Eliminar campo del formulario
     $('#localStorageForm').formValidation('removeField', $option);
+
+    cantRespuestas--;
   })
 
   // Llamada después de eliminar el campo

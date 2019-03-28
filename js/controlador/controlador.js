@@ -6,14 +6,31 @@ var Controlador = function(modelo) {
 };
 
 Controlador.prototype = {
-  agregarPregunta: function(pregunta, respuestas) {
-    this.modelo.agregarPregunta(pregunta, respuestas);
+  agregarPregunta: function(textoPregunta, respuestas) {
+    this.modelo.agregarPregunta(textoPregunta, respuestas);
   },
   borrarPregunta: function(idPregunta) {
-    this.modelo.borrarPregunta(idPregunta);
+    if(idValido(idPregunta)) {
+      this.modelo.borrarPregunta(idPregunta);
+    };
   },
   borrarTodo: function() {
     this.modelo.borrarTodo();
   },
-  // agregarVoto: function()
+  editarPregunta: function(idPregunta, nuevoTextoPregunta, respuestas) {
+    if(idValido(idPregunta)) {
+      this.modelo.editarPregunta(idPregunta, nuevoTextoPregunta, respuestas);
+    };
+  },
+  votarRespuesta: function(idPregunta, textoRespuesta) {
+    if(idValido(idPregunta)) {
+      this.modelo.votarRespuesta(idPregunta, textoRespuesta);
+    };
+  },
+};
+
+
+// Validaciones 
+function idValido(id) {
+  return typeof id === 'number' && id >= 0;
 };

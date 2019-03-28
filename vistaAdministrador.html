@@ -34,7 +34,7 @@
             </div>
           </div>
 
-          <div class="form-group" id="respuesta">
+          <div id="respuesta0" class="form-group" id="respuesta">
             <label class="control-label">Respuestas</label>
             <input type="text" class="form-control" name="option[]" />
           </div>
@@ -42,7 +42,7 @@
           <!-- Template -->
           <div class="form-group answer hide" id="optionTemplate">
             <input class="form-control" type="text" name="option[]" />
-            <button type="button" class="btn btn-default botonBorrarRespuesta"><i class="fa fa-minus"></i></button>
+            <button type="button" id="btnTemplateBorrar" class="btn btn-default botonBorrarRespuesta"><i class="fa fa-minus"></i></button>
           </div>
 
           <!-- Boton agregar -->
@@ -53,6 +53,7 @@
         </div>
 
         <button id="agregarPregunta" class="btn btn-default main-button" type="reset">Crear pregunta</button>
+        <button id="guardarCambios" class="btn btn-default main-button hide" type="reset">Guardar cambios</button>
 
       </form>
 
