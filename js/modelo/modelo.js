@@ -1,9 +1,13 @@
+// TO DO:
+  // cambiar sistema de ids del formulario respuesta
+
 //PREGUNTAS: 
   // var pregunta = this.buscarPreguntaPorId(id);
   // pregunta.textoPregunta = textoPregunta;
   // - Se modifica la pregunta original?
 
-  // - Para la funcion editarPregunta: Puedo hacer un click virtual en el boton agregar respuesta por cada respuesta que haya en la pregunta a editar? 
+  // - Cuando borro una respuesta que no es la ultima, los ids de los inputs respuesta pierden el hilo
+
 
 
 /*
@@ -17,6 +21,7 @@ var Modelo = function() {
   this.preguntaAgregada = new Evento(this);
   this.preguntaEliminada = new Evento(this);
   this.preguntaEditada = new Evento(this);
+  this.respuestaVotada = new Evento(this);
 };
 
 Modelo.prototype = {
@@ -72,6 +77,7 @@ Modelo.prototype = {
     var respuesta = pregunta.cantidadPorRespuesta.find((respuesta) => respuesta.textoRespuesta === textoRespuesta);
     respuesta.cantidad++;
     this.guardar();
+    this.respuestaVotada.notificar();
   },
 
   //se guardan las preguntas

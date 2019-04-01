@@ -5,6 +5,7 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.modelo = modelo;
   this.controlador = controlador;
   this.elementos = elementos;
+  this.editandoPregunta = false;
   var contexto = this;
 
   // suscripción de observadores
@@ -73,9 +74,9 @@ VistaAdministrador.prototype = {
             respuestas.push(respuesta);
           };
         });
-        contexto.limpiarFormulario();
-        contexto.controlador.agregarPregunta(textoPregunta, respuestas);
       };
+      contexto.limpiarFormulario();
+      contexto.controlador.agregarPregunta(textoPregunta, respuestas);
     });
     //asociar el resto de los botones a eventos
     e.botonBorrarPregunta.click(function() {
@@ -88,6 +89,8 @@ VistaAdministrador.prototype = {
       contexto.controlador.borrarTodo();
     });
     e.botonEditarPregunta.click(function() {
+      if (!contexto.editandoPregunta) contexto.toggleBotonPrincipal();
+      contexto.editandoPregunta = true;
       var $pregunta = $('.list-group-item.active');
       var idPregunta = parseInt($pregunta.attr('id'));
       var pregunta = contexto.modelo.buscarPreguntaPorId(idPregunta);
@@ -95,14 +98,14 @@ VistaAdministrador.prototype = {
       var respuestas = pregunta.cantidadPorRespuesta;
 
       e.pregunta.val(textoPregunta);
-
-      for(let i=1; i < respuestas.length; i++) {
+      contexto.borrarCamposRespuesta();
+      for(let i=2; i < respuestas.length; i++) {
         $('.botonAgregarRespuesta').click();
       };
-      respuestas.forEach((respuesta, index) => $(`#respuesta${index} input`).val(respuesta.textoRespuesta));
-      contexto.toggleBotonPrincipal();
+      respuestas.forEach((respuesta, index) => $(`#respuesta${index + 1} input`).val(respuesta.textoRespuesta));
     });
     e.botonGuardarCambios.click(function() {
+      contexto.editandoPregunta = false;
       var $pregunta = $('.list-group-item.active');
       var idPregunta = parseInt($pregunta.attr('id'));
       let nuevoTextoPregunta = e.pregunta.val();
@@ -122,20 +125,29 @@ VistaAdministrador.prototype = {
       contexto.toggleBotonPrincipal();
       
       //una vez guardados los cambios, se borran los campos de respuestas adicionales
-      $('.botonBorrarRespuesta').each(function(){
-        if($(this).attr('id') !== 'btnTemplateBorrar') {
-          $(this).click();
-        };
-      });
+      contexto.borrarCamposRespuesta();
+    });
+    e.botonCancelar.click(function() {
+      contexto.editandoPregunta = false;
+      contexto.limpiarFormulario();
+      contexto.toggleBotonPrincipal();
+      contexto.borrarCamposRespuesta();
     });
   },
 
   toggleBotonPrincipal: function() {
     this.elementos.botonAgregarPregunta.toggleClass('hide');
     this.elementos.botonGuardarCambios.toggleClass('hide');
+    this.elementos.botonCancelar.toggleClass('hide');
   },
 
   limpiarFormulario: function() {
     $('.form-group.answer.has-feedback.has-success').remove();
+  },
+
+  borrarCamposRespuesta: function() {
+    $('.botonBorrarRespuesta').each(function(){
+      if ($(this).parent().attr('id') !== 'optionTemplate') $(this).click();
+    });
   },
 };

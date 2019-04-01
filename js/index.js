@@ -10,6 +10,7 @@ var vistaAdmin = new VistaAdministrador(modelo, new Controlador(modelo), {
   'botonAgregarPregunta': $('#agregarPregunta'),
   'muestraDeRespuestas': $('.panel-body'),
   'botonGuardarCambios': $('#guardarCambios'),
+  'botonCancelar': $('#cancelar'),
 });
 vistaAdmin.inicializar();
 var vistaUsuario = new VistaUsuario(modelo, new Controlador(modelo), {

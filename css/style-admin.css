@@ -1,3 +1,14 @@
+#cancelar {
+	display: inline-block;
+	width: 39%;
+	background-color: #EA1D5E;
+}
+#guardarCambios {
+	display: inline-block;
+	width: 60%;
+	background-color: rgb(25, 177, 25);
+}
+
 button.botonAgregarRespuesta,
 button.botonBorrarRespuesta {
 	display: inline-block;
