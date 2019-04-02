@@ -88,5 +88,5 @@ function reasignarIdsRespuestas() {
       $(this).parent().attr('id', 'respuesta' + (index+1));
       console.log('after: ', $(this).parent().attr('id'));
     };
-  })
+  });
 };

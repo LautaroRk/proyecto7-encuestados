@@ -29,8 +29,13 @@ button .fa-plus {
 	background-color: #EA1D5E;
 }
 
-#agregarPregunta:hover {
+#agregarPregunta:hover,
+#cancelar:hover {
 	background-color: #cc1952;
+}
+
+#guardarCambios:hover {
+	background-color: rgb(19, 138, 19);
 }
 
 .botones {

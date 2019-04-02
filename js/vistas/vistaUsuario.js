@@ -40,8 +40,9 @@ VistaUsuario.prototype = {
     var contexto = this;
     //obtiene las preguntas del local storage
     var preguntas = this.modelo.preguntas;
-    let totalDeRespuestas = 0;
+    
     preguntas.forEach(function(clave){
+      let totalDeRespuestas = 0;
       var listaParaGrafico = [[clave.textoPregunta, 'Cantidad']];
       var respuestas = clave.cantidadPorRespuesta;
       respuestas.forEach (function(elemento) {
