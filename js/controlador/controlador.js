@@ -11,7 +11,7 @@ Controlador.prototype = {
       this.modelo.agregarPregunta(textoPregunta, respuestas);
     }
     if(!esString(textoPregunta)) {
-      alert('La pregunta no puede estar vacía.');
+      swal('¡Error!', 'La pregunta no puede estar vacía', 'error');
     }
   },
   borrarPregunta: function(idPregunta) {
@@ -50,10 +50,10 @@ function validarRespuestas(respuestas) {
   let respuestasNoVacias = respuestas.every(respuesta => this.esString(respuesta.textoRespuesta));
 
   if(!cantidadSuficiente) {
-    alert('Cada pregunta debe tener al menos dos respuestas.');
+    swal('¡Error!', 'Cada pregunta debe tener al menos dos respuestas posibles', 'error');
   }
   else if(!respuestasNoVacias) {
-    alert('La respuesta no puede estar vacía.');
+    swal('¡Error!', '', 'error');
   }
 
   return esArray && cantidadSuficiente && respuestasNoVacias;

@@ -42,16 +42,14 @@ VistaUsuario.prototype = {
     var preguntas = this.modelo.preguntas;
     
     preguntas.forEach(function(clave){
-      let totalDeRespuestas = 0;
+      let seVotoAlgunaVez = false;
       var listaParaGrafico = [[clave.textoPregunta, 'Cantidad']];
       var respuestas = clave.cantidadPorRespuesta;
       respuestas.forEach (function(elemento) {
         listaParaGrafico.push([elemento.textoRespuesta,elemento.cantidad]);
-        totalDeRespuestas += elemento.cantidad;
+        if (elemento.cantidad) seVotoAlgunaVez = true;
       });
-      if(totalDeRespuestas > 0) {
-        contexto.dibujarGrafico(clave.textoPregunta, listaParaGrafico);
-      };
+      if (seVotoAlgunaVez) contexto.dibujarGrafico(clave.textoPregunta, listaParaGrafico);
     })
   },
 
